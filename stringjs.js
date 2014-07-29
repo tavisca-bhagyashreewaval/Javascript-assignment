@@ -1,5 +1,5 @@
+window.onload = doStringOperations;
 function stringsOps() {
-
     this.concat = function concat(str1, str2) {
         var result = str1 + str2;
         return result;
@@ -56,12 +56,16 @@ function stringsOps() {
 
 
     this.chatAt = function chatAt(input_str, pos) {
+        if (parseInt(pos) < 1) {
+            return "position is less than minimum value(i.e, 1)";
+        }
         var j = 0;
         var length1 = 0;
         while (input_str[j] != null) {
             length1 = length1 + 1;
             j = j + 1;
         }
+        
         if (parseInt(pos) > j) {
             return "position is greather than string length";
         }
@@ -107,7 +111,7 @@ function stringsOps() {
 
 
     this.replace = function replace(str, ch1, ch2) {
-
+        var flag = 0;
         var i = 0;
         var res = str[0];
         var cnt = 0;
@@ -157,13 +161,22 @@ function stringsOps() {
                     res = res + ch2[p];
                     p = p + 1;
                 }
-                i = i + ch1_length-1;
-               
+                flag = 1;
+                
+                i = i + ch1_length ;
+                break;
             }
             else {
                 res = res+ str[i];
             }
             i = i + 1;
+        }
+        if (flag == 1) {
+        
+            while (str[i] != null) {
+                res = res + str[i];
+                i = i + 1;
+            }
         }
         var result = res[1];
         var count = 2;
@@ -175,44 +188,49 @@ function stringsOps() {
 
     }
 }
+function doStringOperations() {
+    document.getElementById("concat").onclick=function do_concat() {
 
-function do_concat() {
-    
-    var obj1 = new stringsOps();
-    //obj1.getFirstInput();
-    var input1=document.getElementById("input1").value;
-    var input2=document.getElementById("input2").value;
-    var result = obj1.concat(input1,input2);
-    document.getElementById("result").innerHTML = result;
-}
-function do_substring() {
-    var obj1 = new stringsOps();
-    var result = obj1.substring(document.getElementById("input1").value, document.getElementById("start_index").value, document.getElementById("end_index").value);
-    document.getElementById("result").innerHTML = result;
-}
-function do_length() {
-    var obj1 = new stringsOps();
-    var result = obj1.length(document.getElementById("input1").value);
-    document.getElementById("result").innerHTML = result;
-}
-function do_chatAt() {
-    var obj1 = new stringsOps();
-    var result = obj1.chatAt(document.getElementById("input1").value, document.getElementById("pos").value);
-    document.getElementById("result").innerHTML = result;
-}
-function do_lastindexof() {
-    var obj1 = new stringsOps();
-    var result = obj1.lastindexof(document.getElementById("input1").value, document.getElementById("char1").value);
-    document.getElementById("result").innerHTML = result;
-}
-function do_indexof() {
-    var obj1 = new stringsOps();
-    var result = obj1.indexof(document.getElementById("input1").value, document.getElementById("char2").value);
-    document.getElementById("result").innerHTML = result;
-}
-function do_replace() {
-    var obj1 = new stringsOps();
-    //debugger;
-    var result = obj1.replace(document.getElementById("input1").value, document.getElementById("to_replace").value, document.getElementById("replace_by").value);
-    document.getElementById("result").innerHTML = result;
+        var obj1 = new stringsOps();
+        var input1 = document.getElementById("input1").value;
+        var input2 = document.getElementById("input2").value;
+        var result = obj1.concat(input1, input2);
+        document.getElementById("result").innerHTML = result;
+    }
+
+    document.getElementById("substring").onclick = function do_substring() {
+        var obj1 = new stringsOps();
+        var result = obj1.substring(document.getElementById("input1").value, document.getElementById("start_index").value, document.getElementById("end_index").value);
+        document.getElementById("result").innerHTML = result;
+    }
+
+    document.getElementById("length").onclick = function do_length() {
+        var obj1 = new stringsOps();
+        var result = obj1.length(document.getElementById("input1").value);
+        document.getElementById("result").innerHTML = result;
+    }
+
+    document.getElementById("charAt").onclick = function do_chatAt() {
+        var obj1 = new stringsOps();
+        var result = obj1.chatAt(document.getElementById("input1").value, document.getElementById("pos").value);
+        document.getElementById("result").innerHTML = result;
+    }
+
+    document.getElementById("lastindexof").onclick = function do_lastindexof() {
+        var obj1 = new stringsOps();
+        var result = obj1.lastindexof(document.getElementById("input1").value, document.getElementById("char1").value);
+        document.getElementById("result").innerHTML = result;
+    }
+
+    document.getElementById("indexof").onclick = function do_indexof() {
+        var obj1 = new stringsOps();
+        var result = obj1.indexof(document.getElementById("input1").value, document.getElementById("char2").value);
+        document.getElementById("result").innerHTML = result;
+    }
+    document.getElementById("replace").onclick=function do_replace() {
+        var obj1 = new stringsOps();
+        //debugger;
+        var result = obj1.replace(document.getElementById("input1").value, document.getElementById("to_replace").value, document.getElementById("replace_by").value);
+        document.getElementById("result").innerHTML = result;
+    }
 }
